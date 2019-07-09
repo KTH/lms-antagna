@@ -1,10 +1,13 @@
 const cron = require('./cron')
-const bunyan = require('bunyan')
+const log = require('./logger')
 
-const log = bunyan.createLogger({
-  name: 'lms-antagna',
-  app: 'lms-antagna'
+log.createLogger({
+  name: 'lms-antagna'
 })
 
-cron.start({log})
+log.context({ request_type: 'cron' }, () => {
+  log.info('Cron job is going to start')
+  cron.start()
+})
+
 log.info('App is running')
