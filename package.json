@@ -4,12 +4,15 @@
   "description": "Enroll `antagna` students every night",
   "main": "app.js",
   "scripts": {
-    "test": "standard"
+    "start:dev": "npx nodemon . | bunyan -o short",
+    "test": "standard && ava"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^2.2.0",
+    "nodemon": "^1.19.1",
     "standard": "^12.0.1"
   },
   "dependencies": {
