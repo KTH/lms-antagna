@@ -4,7 +4,7 @@
   "description": "Enroll `antagna` students every night",
   "main": "app.js",
   "scripts": {
-    "start:dev": "npx nodemon . | bunyan -o short",
+    "start:dev": "NODE_ENV=development npx nodemon . | bunyan -o short",
     "test": "standard && ava"
   },
   "keywords": [],
