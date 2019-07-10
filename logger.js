@@ -5,10 +5,10 @@ const ns = createNamespace('ns')
 let log = {
   trace: console.trace,
   debug: console.debug,
-  info: console.info,
-  warn: console.warn,
-  error: console.error,
-  fatal: console.error,
+  info: process.env.NODE_ENV === 'test' ? () => {} : console.info,
+  warn: process.env.NODE_ENV === 'test' ? () => {} : console.warn,
+  error: process.env.NODE_ENV === 'test' ? () => {} : console.error,
+  fatal: process.env.NODE_ENV === 'test' ? () => {} : console.error,
   child: () => log
 }
 
