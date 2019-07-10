@@ -1,3 +1,4 @@
+require('dotenv').config({})
 const cron = require('./cron')
 const log = require('./logger')
 
