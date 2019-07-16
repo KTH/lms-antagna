@@ -15,6 +15,8 @@ async function sync () {
     log.info(`Starting sync for period ${PERIOD}`)
     try {
       const enr1 = await getEnrollments.toRemoveAntagna(PERIOD.prevPeriod())
+
+      await getEnrollments.toAddAntagna(PERIOD)
       await canvas.sendEnrollments(enr1)
     } catch (err) {
       log.error(err)
