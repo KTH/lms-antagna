@@ -18,7 +18,7 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
-    "@kth/canvas-api": "^2.0.0",
+    "@kth/canvas-api": "^2.1.0-beta.1",
     "bunyan": "^1.8.12",
     "cls-hooked": "^4.2.2",
     "dotenv": "^8.0.0",
