@@ -26,6 +26,10 @@ async function sync () {
 }
 
 module.exports.start = async function start () {
-  await sync()
-  scheduleJob(INTERVAL, () => sync())
+  sync()
+  const job = scheduleJob(INTERVAL, async () => {
+    await sync()
+    log.info(`Next sync is scheduled for: ${job.nextInvocation()}`)
+  })
+  log.info(`Next sync is scheduled for: ${job.nextInvocation()}`)
 }
