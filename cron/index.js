@@ -21,6 +21,7 @@ async function sync () {
     } catch (err) {
       log.error(err, 'Error in sync for period ${PERIOD}')
     }
+    log.info(`Finish sync for period ${PERIOD}`)
   })
 }
 
