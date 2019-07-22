@@ -3,6 +3,7 @@ const cron = require('./cron')
 const log = require('./logger')
 
 log.createLogger({
+  app: 'lms-antagna',
   name: 'lms-antagna',
   level: process.env.NODE_ENV === 'development' ? 'trace' : 'info'
 })
