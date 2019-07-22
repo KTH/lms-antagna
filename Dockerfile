@@ -12,6 +12,7 @@ COPY ["logger.js", "logger.js"]
 COPY ["cron", "cron"]
 COPY ["lib", "lib"]
 COPY ["server", "server"]
+COPY ["config", "config"]
 
 RUN npm ci --production
 
