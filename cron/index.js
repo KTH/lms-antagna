@@ -7,8 +7,8 @@ const cuid = require('cuid')
 
 // "0 5 * * *" = "Every day at 5:00"
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
-
 const PERIOD = Period(process.env.PERIOD || '2019-HT-P1')
+let job
 
 async function sync () {
   // Start a new context
@@ -26,11 +26,25 @@ async function sync () {
   })
 }
 
-module.exports.start = async function start () {
-  const job = scheduleJob(INTERVAL, async () => {
+async function start () {
+  job = scheduleJob(INTERVAL, async () => {
     await sync()
     log.info(`Next sync is scheduled for: ${job.nextInvocation()}`)
   })
   await sync()
   log.info(`Next sync is scheduled for: ${job.nextInvocation()}`)
+}
+
+function nextSync () {
+  if (job) {
+    return job.nextInvocation()
+  } else {
+    return 'synchronization not set'
+  }
+}
+
+
+module.exports = {
+  start,
+  nextSync
 }
