@@ -10,6 +10,7 @@ app.get(prefix + '/_monitor', (req, res) => {
     'APPLICATION_STATUS: OK',
     '- NO MONITOR IMPLEMENTED YET',
     `- Next scheduled synchronization: ${cron.nextSync()}`,
+    cron.isRunning() ? '- Sync is running now' : '',
     '',
     'INFO:',
     `- Canvas URL: ${process.env.CANVAS_API_URL}`,

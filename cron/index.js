@@ -9,8 +9,14 @@ const cuid = require('cuid')
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 const PERIOD = Period(process.env.PERIOD || '2019-HT-P1')
 let job
+let running = false
 
 async function sync () {
+  if (running) {
+    return
+  }
+
+  running = true
   // Start a new context
   await log.context({ req_id: cuid() }, async () => {
     log.info(`Starting sync for period ${PERIOD}`)
@@ -24,6 +30,7 @@ async function sync () {
     }
     log.info(`Finish sync for period ${PERIOD}`)
   })
+  running = false
 }
 
 async function start () {
@@ -43,8 +50,13 @@ function nextSync () {
   }
 }
 
+function isRunning () {
+  return running
+}
+
 
 module.exports = {
   start,
-  nextSync
+  nextSync,
+  isRunning
 }
