@@ -29,10 +29,13 @@ module.exports = {
   },
 
   context (options, callback) {
-    ns.run(() => {
-      // Create a new logger based on "options"
-      ns.set('logger', getCurrentLogger().child(options))
-      callback()
+    return new Promise(resolve => {
+      ns.run(async () => {
+        // Create a new logger based on "options"
+        ns.set('logger', getCurrentLogger().child(options))
+        await callback()
+        resolve()
+      })
     })
   }
 }
