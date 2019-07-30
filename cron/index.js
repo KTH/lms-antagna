@@ -19,7 +19,7 @@ async function sync () {
 
       await canvas.sendEnrollments([...enr1, ...enr2])
     } catch (err) {
-      log.error(err, 'Error in sync for period ${PERIOD}')
+      log.error(err, `Error in sync for period ${PERIOD}`)
     }
     log.info(`Finish sync for period ${PERIOD}`)
   })
