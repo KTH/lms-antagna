@@ -7,7 +7,7 @@ const { stdSerializers } = require('bunyan')
 log.createLogger({
   app: 'lms-antagna',
   name: 'lms-antagna',
-  level: process.env.NODE_ENV === 'development' ? 'trace' : 'info',
+  level: process.env.NODE_ENV === 'development' ? 'trace' : (process.env.LOG_LEVEL || 'info'),
   serializers: stdSerializers
 })
 
