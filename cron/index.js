@@ -54,7 +54,6 @@ function isRunning () {
   return running
 }
 
-
 module.exports = {
   start,
   nextSync,

@@ -1,5 +1,4 @@
 const express = require('express')
-const log = require('../logger')
 const app = express()
 const prefix = process.env.PROXY_PATH || ''
 const cron = require('../cron')
