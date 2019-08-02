@@ -11,6 +11,11 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "standard": {
+    "ignore": [
+      "config/version.js"
+    ]
+  },
   "devDependencies": {
     "ava": "^2.2.0",
     "create-test-server": "^3.0.1",
