@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "NODE_ENV=development npx nodemon . | bunyan -o short",
-    "test": "standard && ava"
+    "test": "standard && ava",
+    "test:all": "standard && ava && npx @kth/lms-scan history"
   },
   "keywords": [],
   "author": "",
