@@ -2,3 +2,4 @@
 
 Do a nightly synchronization of people enrolled as "antagna"
 
+.
