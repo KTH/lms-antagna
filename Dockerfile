@@ -17,7 +17,7 @@ COPY ["config", "config"]
 RUN mkdir node_modules
 RUN chown $(whoami):$(id -gn) node_modules
 RUN npm ci --production
-
+RUN chown jenkins:986 node_modules
 EXPOSE 3000
 
 CMD ["node", "app.js"]
