@@ -18,6 +18,6 @@ RUN mkdir node_modules
 RUN chown $(whoami):$(id -gn) node_modules
 RUN npm ci --production
 EXPOSE 3000
-RUN chown jenkins:986 node_modules
+RUN rm -Rf node_modules
 
 CMD ["node", "app.js"]
