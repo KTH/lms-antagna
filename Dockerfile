@@ -15,6 +15,7 @@ COPY ["server", "server"]
 COPY ["config", "config"]
 
 RUN npm ci --production
+RUN chown jenkins:jenkins node_modules
 
 EXPOSE 3000
 
