@@ -14,6 +14,7 @@ COPY ["lib", "lib"]
 COPY ["server", "server"]
 COPY ["config", "config"]
 
+run mkdir node_modules
 RUN chown $(whoami):$(id -gn) node_modules
 RUN npm ci --production
 
