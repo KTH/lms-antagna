@@ -14,9 +14,9 @@ COPY ["lib", "lib"]
 COPY ["server", "server"]
 COPY ["config", "config"]
 
-RUN chown jenkins:jenkins node_modules
+RUN chown $(whoami):$(id -gn) node_modules
 RUN npm ci --production
-RUN chown jenkins:jenkins node_modules
+
 
 EXPOSE 3000
 
