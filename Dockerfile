@@ -18,7 +18,6 @@ run mkdir node_modules
 RUN chown $(whoami):$(id -gn) node_modules
 RUN npm ci --production
 
-
 EXPOSE 3000
 
 CMD ["node", "app.js"]
