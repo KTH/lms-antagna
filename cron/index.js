@@ -5,6 +5,10 @@ const getEnrollments = require('../lib/getEnrollments')
 const canvas = require('../lib/Canvas')
 const cuid = require('cuid')
 
+if (!process.env.PERIOD) {
+  throw new Error('The environmental variable "PERIOD" should be set to run this app.')
+}
+
 // "0 5 * * *" = "Every day at 5:00"
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 const PERIOD = Period(process.env.PERIOD)
