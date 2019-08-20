@@ -7,7 +7,7 @@ const cuid = require('cuid')
 
 // "0 5 * * *" = "Every day at 5:00"
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
-const PERIOD = Period(process.env.PERIOD || '2019-HT-P1')
+const PERIOD = Period(process.env.PERIOD)
 let job
 let running = false
 
