@@ -24,6 +24,7 @@
     "standard": "^12.0.1"
   },
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
     "@kth/canvas-api": "^2.1.0-beta.2",
     "bunyan": "^1.8.12",
     "cls-hooked": "^4.2.2",
