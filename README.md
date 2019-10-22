@@ -19,6 +19,8 @@ Periodical synchronization of people enrolled as "antagna" in the current Regist
 1.  Set the environmental variables as written in [the `.env.in` file][env-in]
 2.  Run `npm start`
 
+*Keep in mind that output logs are in JSON format and could be therefore a bit unreadable without the correct tools.*
+
 ## :rainbow: Contribution guide
 
 The app is divided in the following components (each in one directory):
