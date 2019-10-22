@@ -6,7 +6,6 @@ COPY ["package-lock.json", "package-lock.json"]
 
 # Source files in root
 COPY ["app.js", "app.js"]
-COPY ["logger.js", "logger.js"]
 
 # Source files directories
 COPY ["cron", "cron"]

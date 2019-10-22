@@ -1,10 +1,10 @@
 require('dotenv').config({})
 const cron = require('./cron')
-const log = require('./logger')
+const log = require('skog')
 const server = require('./server')
 const { stdSerializers } = require('bunyan')
 
-log.createLogger({
+require('skog/bunyan').createLogger({
   app: 'lms-antagna',
   name: 'lms-antagna',
   level:
@@ -24,12 +24,12 @@ log.info(
   ].join('\n')
 )
 
-log.context({ trigger: 'http' }, () => {
+log.child({ trigger: 'http' }, () => {
   server.listen(process.env.PORT || 3000, () => {
     log.info(`Express server started!`)
   })
 })
 
-log.context({ trigger: 'cron' }, () => {
+log.child({ trigger: 'cron' }, () => {
   cron.start()
 })

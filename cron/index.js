@@ -1,5 +1,5 @@
 const { scheduleJob } = require('node-schedule')
-const log = require('../logger')
+const log = require('skog')
 const Period = require('../lib/Period')
 const getEnrollments = require('../lib/getEnrollments')
 const canvas = require('../lib/Canvas')
@@ -23,8 +23,7 @@ async function sync () {
   }
 
   running = true
-  // Start a new context
-  await log.context({ req_id: cuid() }, async () => {
+  await log.child({ req_id: cuid() }, async () => {
     log.info(`Starting sync for period ${PERIOD}`)
     try {
       const enr1 = await getEnrollments.toRemoveAntagna(PERIOD.prevPeriod())
