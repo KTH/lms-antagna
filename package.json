@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=production node .",
     "start:dev": "NODE_ENV=development npx nodemon . | bunyan -o short",
-    "test": "standard && ava",
+    "format": "standard --fix && prettier",
+    "test": "standard && prettier --check \"**/*.js\" && ava",
     "test:all": "standard && ava && npx @kth/lms-scan history"
   },
   "keywords": [],
@@ -17,13 +18,11 @@
       "config/version.js"
     ]
   },
-  "prettier": "prettier-config-standard",
   "devDependencies": {
     "ava": "^2.2.0",
     "create-test-server": "^3.0.1",
     "nodemon": "^1.19.1",
     "prettier": "1.18.2",
-    "prettier-config-standard": "^1.0.1",
     "proxyquire": "^2.1.1",
     "standard": "^12.0.1"
   },
