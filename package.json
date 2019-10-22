@@ -6,9 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=production node .",
     "start:dev": "NODE_ENV=development npx nodemon . | bunyan -o short",
-    "format": "standard --fix && prettier",
-    "test": "standard && prettier --check \"**/*.js\" && ava",
-    "test:all": "standard && ava && npx @kth/lms-scan history"
+    "format": "prettier-standard \"**/*.js\"",
+    "test": "prettier-standard --lint --check \"**/*.js\" && ava",
+    "test:all": "npm test && npx @kth/lms-scan history"
   },
   "keywords": [],
   "author": "",
