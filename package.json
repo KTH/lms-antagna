@@ -4,6 +4,7 @@
   "description": "Enroll `antagna` students every night",
   "main": "app.js",
   "scripts": {
+    "start": "NODE_ENV=production node .",
     "start:dev": "NODE_ENV=development npx nodemon . | bunyan -o short",
     "test": "standard && ava",
     "test:all": "standard && ava && npx @kth/lms-scan history"
