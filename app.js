@@ -1,15 +1,14 @@
 require('dotenv').config({})
-const cron = require('./cron')
-const log = require('./logger')
-const server = require('./server')
-const { stdSerializers } = require('bunyan')
-
-log.createLogger({
+require('skog/bunyan').createLogger({
   app: 'lms-antagna',
   name: 'lms-antagna',
   level: process.env.NODE_ENV === 'development' ? 'trace' : (process.env.LOG_LEVEL || 'info'),
-  serializers: stdSerializers
+  serializers: require('bunyan').stdSerializers
 })
+
+const cron = require('./cron')
+const log = require('skog')
+const server = require('./server')
 
 log.info([
   `App started with the following env variables (secrets are not shown)`,
@@ -19,12 +18,12 @@ log.info([
   `KOPPS_API_URL=${process.env.KOPPS_API_URL}`
 ].join('\n'))
 
-log.context({ trigger: 'http' }, () => {
+log.child({ trigger: 'http' }, () => {
   server.listen(process.env.PORT || 3000, () => {
     log.info(`Express server started!`)
   })
 })
 
-log.context({ trigger: 'cron' }, () => {
+log.child({ trigger: 'cron' }, () => {
   cron.start()
 })
