@@ -22,7 +22,7 @@ pipeline {
         // These are the commands run in the original Jenkins project
         stage('Original Process') {
             steps {
-                sh 'docker network prune'
+                sh 'docker network prune -f'
                 sh 'ls $JENKINS_HOME/workspace/zermatt/jenkins/'
                 sh '$JENKINS_HOME/workspace/zermatt/jenkins/buildinfo-to-node-module.sh /config/version.js'
                 sh 'SLACK_CHANNELS="#team-e-larande-build,#pipeline-logs" DEBUG=True EXPERIMENTAL=True $EVOLENE_DIRECTORY/run.sh'
