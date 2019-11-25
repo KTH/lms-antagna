@@ -19,6 +19,8 @@ Periodical synchronization of people enrolled as "antagna" in the current Regist
 1.  Set the environmental variables as written in [the `.env.in` file][env-in]
 2.  Run `npm start`
 
+_Keep in mind that output logs are in JSON format and could be therefore a bit unreadable without the correct tools._
+
 ## :rainbow: Contribution guide
 
 The app is divided in the following components (each in one directory):
@@ -31,4 +33,3 @@ The app is divided in the following components (each in one directory):
 :bulb: Quick start: run `npx madge app.js --image graph.svg` in the root of this project to get an overview of the internal dependencies.
 
 [env-in]: https://github.com/KTH/lms-antagna/blob/master/.env.in
-
