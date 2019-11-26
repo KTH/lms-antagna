@@ -13,7 +13,8 @@ pipeline {
                 COMPOSE_PROJECT_NAME = "${env.BUILD_TAG}"
             }
             steps {
-                sh 'BUILD_INFORMATION_OUTPUT_FILE="/config/version.js" SLACK_CHANNELS="#team-e-larande-build,#pipeline-logs" DEBUG=True EXPERIMENTAL=True $EVOLENE_DIRECTORY/run.sh'
+                sh '$JENKINS_HOME/workspace/zermatt/jenkins/buildinfo-to-node-module.sh /config/version.js'
+                sh 'SLACK_CHANNELS="#team-e-larande-build,#pipeline-logs" DEBUG=True EXPERIMENTAL=True $EVOLENE_DIRECTORY/run.sh'
             }
         }
         stage('Dump info') {
