@@ -1,4 +1,4 @@
-require('dotenv').config({})
+require('dotenv').config()
 require('skog/bunyan').createLogger({
   app: 'lms-antagna',
   name: 'lms-antagna',
@@ -9,8 +9,18 @@ require('skog/bunyan').createLogger({
   serializers: require('bunyan').stdSerializers
 })
 
-const cron = require('./cron')
 const log = require('skog')
+process.on('uncaughtException', err => {
+  log.fatal(err, 'Uncaught Exception thrown')
+  process.exit(1)
+})
+
+process.on('unhandledRejection', (reason, p) => {
+  throw reason
+})
+
+require('@kth/reqvars').check()
+const cron = require('./cron')
 const server = require('./server')
 
 log.info(
