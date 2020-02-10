@@ -1,8 +1,8 @@
 const { scheduleJob } = require('node-schedule')
 const log = require('skog')
-const Period = require('../lib/Period')
-const getEnrollments = require('../lib/getEnrollments')
-const canvas = require('../lib/Canvas')
+const Period = require('../lib/period')
+const getEnrollments = require('../lib/get-enrollments')
+const canvas = require('../lib/canvas')
 const cuid = require('cuid')
 
 if (!process.env.PERIOD) {
