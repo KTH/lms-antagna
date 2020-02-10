@@ -21,13 +21,16 @@ const PERIOD = Period(process.env.PERIOD)
 let job
 let running = false
 
+// How many times has the sync failed consecutively
+let consecutiveFailures = 0
+
 async function sync () {
   if (running) {
     return
   }
 
   running = true
-  // Start a new context
+
   await log.child({ req_id: cuid() }, async () => {
     log.info(`Starting sync for period ${PERIOD}`)
     try {
@@ -38,9 +41,18 @@ async function sync () {
 
       log.info(`Finish sync successfully for period ${PERIOD}`)
       job.reschedule(INTERVAL)
+      consecutiveFailures = 0
     } catch (err) {
+      consecutiveFailures++
+
+      if (consecutiveFailures > 5) {
+        log.fatal(err, 'Sync has failed more than 5 times in a row. App will crash now')
+        job.cancel()
+        process.exit(1)
+      }
+
       job.reschedule(FAILURE_INTERVAL)
-      log.error(err, `Error in sync for period ${PERIOD}. Will try again on: ${job.nextInvocation()}`)
+      log.error(err, `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`)
     }
   })
   running = false
