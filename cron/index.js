@@ -15,7 +15,7 @@ if (!process.env.PERIOD) {
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 
 // "0,30 * * * *" = "Every 30 minutes (at X:00 and X:30)"
-const FAILURE_INTERVAL = "0,30 * * * *"
+const FAILURE_INTERVAL = '0,30 * * * *'
 
 const PERIOD = Period(process.env.PERIOD)
 let job
@@ -46,13 +46,19 @@ async function sync () {
       consecutiveFailures++
 
       if (consecutiveFailures > 5) {
-        log.fatal(err, 'Sync has failed more than 5 times in a row. App will crash now')
+        log.fatal(
+          err,
+          'Sync has failed more than 5 times in a row. App will crash now'
+        )
         job.cancel()
         process.exit(1)
       }
 
       job.reschedule(FAILURE_INTERVAL)
-      log.error(err, `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`)
+      log.error(
+        err,
+        `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
+      )
     }
   })
   running = false
