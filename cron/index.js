@@ -13,6 +13,10 @@ if (!process.env.PERIOD) {
 
 // "0 5 * * *" = "Every day at 5:00"
 const INTERVAL = process.env.INTERVAL || '0 5 * * *'
+
+// "0,30 * * * *" = "Every 30 minutes (at X:00 and X:30)"
+const FAILURE_INTERVAL = "0,30 * * * *"
+
 const PERIOD = Period(process.env.PERIOD)
 let job
 let running = false
@@ -31,10 +35,13 @@ async function sync () {
       const enr2 = await getEnrollments.toAddAntagna(PERIOD)
 
       await canvas.sendEnrollments([...enr1, ...enr2])
+
+      log.info(`Finish sync successfully for period ${PERIOD}`)
+      job.reschedule(INTERVAL)
     } catch (err) {
-      log.error(err, `Error in sync for period ${PERIOD}`)
+      job.reschedule(FAILURE_INTERVAL)
+      log.error(err, `Error in sync for period ${PERIOD}. Will try again on: ${job.nextInvocation()}`)
     }
-    log.info(`Finish sync for period ${PERIOD}`)
   })
   running = false
 }
