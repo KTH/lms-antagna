@@ -48,17 +48,17 @@ async function sync () {
       if (consecutiveFailures > 5) {
         log.fatal(
           err,
-          'Sync has failed more than 5 times in a row. App will crash now'
+          'Sync has failed more than 5 times in a row.'
         )
-        job.cancel()
-        process.exit(1)
+        consecutiveFailures = 0
+        job.reschedule(INTERVAL)
+      } else {
+        job.reschedule(FAILURE_INTERVAL)
+        log.error(
+          err,
+          `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
+        )
       }
-
-      job.reschedule(FAILURE_INTERVAL)
-      log.error(
-        err,
-        `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
-      )
     }
   })
   running = false
