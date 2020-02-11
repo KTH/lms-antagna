@@ -46,10 +46,7 @@ async function sync () {
       consecutiveFailures++
 
       if (consecutiveFailures > 5) {
-        log.fatal(
-          err,
-          'Sync has failed more than 5 times in a row.'
-        )
+        log.fatal(err, 'Sync has failed more than 5 times in a row.')
         consecutiveFailures = 0
         job.reschedule(INTERVAL)
       } else {
