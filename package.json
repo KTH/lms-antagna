@@ -19,7 +19,7 @@
     ]
   },
   "devDependencies": {
-    "ava": "^2.4.0",
+    "ava": "^3.7.1",
     "create-test-server": "^3.0.1",
     "nodemon": "^2.0.3",
     "prettier-standard": "15.0.1",
