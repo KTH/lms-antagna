@@ -1,4 +1,5 @@
 FROM node:10-alpine
+WORKDIR /usr/src/app
 
 # We do this to avoid npm install when we're only changing code
 COPY ["package.json", "package.json"]
