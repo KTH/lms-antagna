@@ -6,16 +6,8 @@ COPY ["package.json", "package.json"]
 COPY ["package-lock.json", "package-lock.json"]
 RUN npm ci --production
 
-# Source files in root
-COPY [".env.in", ".env.in"]
-COPY ["app.js", "app.js"]
-COPY ["logger.js", "logger.js"]
-
-# Source files directories
-COPY ["cron", "cron"]
-COPY ["lib", "lib"]
-COPY ["server", "server"]
-COPY ["config", "config"]
+# Everything else
+COPY . .
 
 EXPOSE 3000
 
