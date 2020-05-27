@@ -12,7 +12,7 @@ Periodical synchronization of people enrolled as "antagna" in the current Regist
 
     Open the newly created `.env` and fill it with the required data. This file will be read on startup as environmental variables.
 
-2.  Run `npm run start:dev` to start the app in development mode
+2.  Run `npm run dev` to start the app in development mode
 
 ## :rocket: Production
 
