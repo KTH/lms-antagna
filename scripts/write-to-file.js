@@ -35,7 +35,7 @@ async function start () {
   )
 
   const enr1 = await getEnrollments.toRemoveAntagna(CURRENT_PERIOD.prevPeriod())
-  const enr2 = [] //await getEnrollments.toAddAntagna(CURRENT_PERIOD)
+  const enr2 = await getEnrollments.toAddAntagna(CURRENT_PERIOD)
 
   file.writeEnrollments(`/tmp/enrollments-antagna-${CURRENT_PERIOD}.csv`, [
     ...enr1,
