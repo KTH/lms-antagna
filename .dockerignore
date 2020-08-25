@@ -1,0 +1,6 @@
+*.md
+#--- From here, everything is a `.gitignore` copy
+node_modules
+.env
+
+.vscode
