@@ -13,5 +13,5 @@ services:
     command: >
       sh -c "cd /usr/src/testdir &&
              apk add --update openssl &&
-             npm install &&
+             npm ci &&
              npm run test:all"
