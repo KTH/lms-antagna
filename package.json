@@ -7,8 +7,8 @@
     "start": "NODE_ENV=production node .",
     "dev": "NODE_ENV=development nodemon . | bunyan -o short",
     "format": "prettier-standard \"**/*.{js,md,yml,json}\"",
-    "test": "prettier-standard --lint --check \"**/*.{js,md,yml,json}\" && ava",
-    "test:all": "npm test && npx @kth/lms-scan history"
+    "test": "prettier-standard --lint --check \"**/*.{js,md,yml,json}\" && ava **/*.test.js !integration-tests/**/*",
+    "test:integration": "ava integration-tests/**/*.js && npx @kth/lms-scan history"
   },
   "keywords": [],
   "author": "",
