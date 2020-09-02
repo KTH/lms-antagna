@@ -1,8 +1,7 @@
 const { scheduleJob } = require('node-schedule')
 const log = require('skog')
 const Period = require('../lib/period')
-const getEnrollments = require('../lib/get-enrollments')
-const canvas = require('../lib/canvas')
+const { syncAntagna } = require('../lib/index')
 const cuid = require('cuid')
 
 if (!process.env.PERIOD) {
@@ -34,10 +33,7 @@ async function sync () {
   await log.child({ req_id: cuid() }, async () => {
     log.info(`Starting sync for period ${PERIOD}`)
     try {
-      const enr1 = await getEnrollments.toRemoveAntagna(PERIOD.prevPeriod())
-      const enr2 = await getEnrollments.toAddAntagna(PERIOD)
-
-      await canvas.sendEnrollments([...enr1, ...enr2])
+      await syncAntagna(PERIOD)
 
       log.info(`Finish sync successfully for period ${PERIOD}`)
       job.reschedule(INTERVAL)
