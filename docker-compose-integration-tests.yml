@@ -8,4 +8,4 @@ services:
     command: >
       sh -c "apk add openssl &&
              npm install &&
-             npm test"
+             npm run test:integration"
