@@ -18,6 +18,9 @@ const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 const FAILURE_INTERVAL = '0,30 * * * *'
 
 const PERIOD = Period(process.env.PERIOD)
+const START_OFFSET = -5
+const END_OFFSET = 5
+
 let job
 let running = false
 
@@ -32,12 +35,29 @@ async function sync () {
   running = true
 
   await log.child({ req_id: cuid() }, async () => {
-    log.info(`Starting sync for period ${PERIOD}`)
-    try {
-      const enr1 = await getEnrollments.toRemoveAntagna(PERIOD.prevPeriod())
-      const enr2 = await getEnrollments.toAddAntagna(PERIOD)
+    const remove0 = PERIOD.offset(START_OFFSET)
+    const remove1 = PERIOD.offset(-1)
 
-      await canvas.sendEnrollments([...enr1, ...enr2])
+    const add0 = PERIOD
+    const add1 = PERIOD.offset(END_OFFSET)
+    log.info(
+      `Starting sync. Current: ${PERIOD}\n- Remove ${remove0} to ${remove1}\n- Add    ${add0} to ${add1}`
+    )
+
+    try {
+      const removeRange = PERIOD.range(START_OFFSET, -1)
+      const addRange = PERIOD.range(0, END_OFFSET)
+      const enrollments = []
+
+      for (const period of removeRange) {
+        enrollments.push(...(await getEnrollments.toRemoveAntagna(period)))
+      }
+
+      for (const period of addRange) {
+        enrollments.push(...(await getEnrollments.toAddAntagna(period)))
+      }
+
+      await canvas.sendEnrollments(enrollments)
 
       log.info(`Finish sync successfully for period ${PERIOD}`)
       job.reschedule(INTERVAL)
