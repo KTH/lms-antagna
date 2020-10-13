@@ -17,7 +17,7 @@ const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 // "0,30 * * * *" = "Every 30 minutes (at X:00 and X:30)"
 const FAILURE_INTERVAL = '0,30 * * * *'
 
-const PERIOD = Period(process.env.PERIOD)
+const currentPeriod = Period.fromString(process.env.PERIOD)
 const START_OFFSET = -5
 const END_OFFSET = 5
 
@@ -35,18 +35,18 @@ async function sync () {
   running = true
 
   await log.child({ req_id: cuid() }, async () => {
-    const remove0 = PERIOD.offset(START_OFFSET)
-    const remove1 = PERIOD.offset(-1)
+    const remove0 = currentPeriod.offset(START_OFFSET)
+    const remove1 = currentPeriod.offset(-1)
 
-    const add0 = PERIOD
-    const add1 = PERIOD.offset(END_OFFSET)
+    const add0 = currentPeriod
+    const add1 = currentPeriod.offset(END_OFFSET)
     log.info(
-      `Starting sync. Current: ${PERIOD}\n- Remove ${remove0} to ${remove1}\n- Add    ${add0} to ${add1}`
+      `Starting sync. Current: ${currentPeriod}\n- Remove ${remove0} to ${remove1}\n- Add    ${add0} to ${add1}`
     )
 
     try {
-      const removeRange = PERIOD.range(START_OFFSET, -1)
-      const addRange = PERIOD.range(0, END_OFFSET)
+      const removeRange = Period.range(currentPeriod, START_OFFSET, -1)
+      const addRange = Period.range(currentPeriod, 0, END_OFFSET)
       const enrollments = []
 
       for (const period of removeRange) {
