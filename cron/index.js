@@ -18,8 +18,6 @@ const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 const FAILURE_INTERVAL = '0,30 * * * *'
 
 const currentPeriod = Period.fromString(process.env.PERIOD)
-const START_OFFSET = -5
-const END_OFFSET = 5
 
 let job
 let running = false
@@ -35,18 +33,12 @@ async function sync () {
   running = true
 
   await log.child({ req_id: cuid() }, async () => {
-    const remove0 = currentPeriod.offset(START_OFFSET)
-    const remove1 = currentPeriod.offset(-1)
-
-    const add0 = currentPeriod
-    const add1 = currentPeriod.offset(END_OFFSET)
-    log.info(
-      `Starting sync. Current: ${currentPeriod}\n- Remove ${remove0} to ${remove1}\n- Add    ${add0} to ${add1}`
-    )
-
     try {
-      const removeRange = Period.range(currentPeriod, START_OFFSET, -1)
-      const addRange = Period.range(currentPeriod, 0, END_OFFSET)
+      const removeRange = Period.range(currentPeriod, -5, -1)
+      const addRange = Period.range(currentPeriod, 0, 5)
+      log.info(
+        `Starting sync. Current: ${currentPeriod}\n- Remove [${removeRange}] \n- Add    [${addRange}]`
+      )
       const enrollments = []
 
       for (const period of removeRange) {
@@ -59,7 +51,7 @@ async function sync () {
 
       await canvas.sendEnrollments(enrollments)
 
-      log.info(`Finish sync successfully for period ${PERIOD}`)
+      log.info(`Sync finished.`)
       job.reschedule(INTERVAL)
       consecutiveFailures = 0
     } catch (err) {
@@ -73,7 +65,7 @@ async function sync () {
         job.reschedule(FAILURE_INTERVAL)
         log.error(
           err,
-          `Error in sync for period ${PERIOD}. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
+          `Error in sync. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
         )
       }
     }
