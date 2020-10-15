@@ -17,6 +17,7 @@ const INTERVAL = process.env.INTERVAL || '0 5 * * *'
 // "0,30 * * * *" = "Every 30 minutes (at X:00 and X:30)"
 const FAILURE_INTERVAL = '0,30 * * * *'
 
+// Read `.env.in` for more information about the "PERIOD" env var
 const currentPeriod = Period.fromString(process.env.PERIOD)
 
 let job
