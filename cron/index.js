@@ -28,6 +28,7 @@ let consecutiveFailures = 0
 
 async function sync () {
   if (running) {
+    log.warn('A sync is already running, aborting this sync.')
     return
   }
 
