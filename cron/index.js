@@ -28,6 +28,7 @@ let consecutiveFailures = 0
 
 async function sync () {
   if (running) {
+    log.error('Previous sync has not finished yet. Maybe the app has hung?')
     return
   }
 
