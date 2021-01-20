@@ -78,10 +78,14 @@ async function sync () {
 async function start () {
   job = scheduleJob(INTERVAL, async () => {
     await sync()
-    log.info(`Scheduled sync done. Next sync is scheduled for: ${job.nextInvocation()}`)
+    log.info(
+      `Scheduled sync done. Next sync is scheduled for: ${job.nextInvocation()}`
+    )
   })
   await sync()
-  log.info(`First sync done. Next sync is scheduled for: ${job.nextInvocation()}`)
+  log.info(
+    `First sync done. Next sync is scheduled for: ${job.nextInvocation()}`
+  )
 }
 
 function nextSync () {
