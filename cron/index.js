@@ -44,11 +44,11 @@ async function sync () {
       )
       const enrollments = []
 
-      await ug.ldapBind()
-
       for (const period of removeRange) {
         enrollments.push(...(await getEnrollments.toRemoveAntagna(period)))
       }
+
+      await ug.ldapBind()
 
       for (const period of addRange) {
         enrollments.push(...(await getEnrollments.toAddAntagna(period)))
