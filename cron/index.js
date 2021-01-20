@@ -3,6 +3,7 @@ const log = require('skog')
 const Period = require('../lib/period')
 const getEnrollments = require('../lib/get-enrollments')
 const canvas = require('../lib/canvas')
+const ug = require('../lib/ug')
 const cuid = require('cuid')
 
 if (!process.env.PERIOD) {
@@ -43,6 +44,8 @@ async function sync () {
       )
       const enrollments = []
 
+      await ug.ldapBind()
+
       for (const period of removeRange) {
         enrollments.push(...(await getEnrollments.toRemoveAntagna(period)))
       }
@@ -70,6 +73,8 @@ async function sync () {
           `Error in sync. It has failed ${consecutiveFailures} times in a row. Will try again on: ${job.nextInvocation()}`
         )
       }
+    } finally {
+      await ug.ldapUnbind()
     }
   })
   running = false
